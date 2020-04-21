@@ -10,6 +10,10 @@ import UIKit
 
 class CardSelectorVC: UIViewController {
     
+    let cards: [UIImage] = Deck.allValues
+    
+    var timer: Timer!
+    
     let cardImageView   = UIImageView()
     let stopButton      = WPbutton(backgroundColor: .systemRed, title: "Stop!")
     let resetButton     = WPbutton(backgroundColor: .systemGreen, title: "Reset")
@@ -17,11 +21,27 @@ class CardSelectorVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         configureUI()
+        startTimer()
         view.backgroundColor = .systemBackground
     }
     
+    func startTimer() {
+        timer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(showRandomCard), userInfo: nil, repeats: true)
+    }
+    
+    @objc func stopTimer() {
+        timer.invalidate()
+    }
+    
+    @objc func resetTimer() {
+        stopTimer()
+        startTimer()
+    }
+    
+    @objc func showRandomCard() {
+        cardImageView.image = cards.randomElement() ?? UIImage.init(named: "AS")
+    }
     
     func configureUI() {
         configureCardImageView()
@@ -46,6 +66,7 @@ class CardSelectorVC: UIViewController {
     
     func configureStopButton() {
         view.addSubview(stopButton)
+        stopButton.addTarget(self, action: #selector(stopTimer), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             stopButton.widthAnchor.constraint(equalToConstant: 260),
@@ -57,6 +78,7 @@ class CardSelectorVC: UIViewController {
     
     func configureResetButton() {
         view.addSubview(resetButton)
+        resetButton.addTarget(self, action: #selector(resetTimer), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             resetButton.widthAnchor.constraint(equalToConstant: 115),
