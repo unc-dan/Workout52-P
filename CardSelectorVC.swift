@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  CardSelectorVC.swift
 //  Workout52-P
 //
 //  Created by Dan T on 21/04/2020.
@@ -8,13 +8,12 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class CardSelectorVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
+        view.backgroundColor = .systemPink
+
     }
-
-
 }
-
