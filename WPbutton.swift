@@ -31,7 +31,8 @@ class WPbutton: UIButton {
         layer.cornerRadius = 8
         titleLabel?.font = .systemFont(ofSize: 19, weight: .bold)
         setTitleColor(.white, for: .normal)
-        translatesAutoresizingMaskIntoConstraints = false //this just means use autolayout = false
+        translatesAutoresizingMaskIntoConstraints = false
+        startAnimatingPressActions()
     }
 
 }

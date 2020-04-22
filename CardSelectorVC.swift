@@ -63,11 +63,12 @@ class CardSelectorVC: UIViewController {
             cardImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -75)
         ])
     }
+
     
     func configureStopButton() {
         view.addSubview(stopButton)
         stopButton.addTarget(self, action: #selector(stopTimer), for: .touchUpInside)
-        
+    
         NSLayoutConstraint.activate([
             stopButton.widthAnchor.constraint(equalToConstant: 260),
             stopButton.heightAnchor.constraint(equalToConstant: 50),
@@ -103,4 +104,8 @@ class CardSelectorVC: UIViewController {
     @objc func presentRulesVC() {
         present(RulesVC(), animated: true)
     }
+    
+    
 }
+
+
