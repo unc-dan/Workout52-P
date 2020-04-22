@@ -13,11 +13,16 @@ class CardSelectorVC: UIViewController {
     let cards: [UIImage] = Deck.allValues
     
     var timer: Timer!
+    var interval = 0.1
+    var count = 0.0
+    let maxCount = 8.0
     
     let cardImageView   = UIImageView()
     let stopButton      = WPbutton(backgroundColor: .systemRed, title: "Stop!")
     let resetButton     = WPbutton(backgroundColor: .systemGreen, title: "Reset")
     let rulesButton     = WPbutton(backgroundColor: .systemBlue, title: "Rules")
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,20 +32,33 @@ class CardSelectorVC: UIViewController {
     }
     
     func startTimer() {
-        timer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(showRandomCard), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(showRandomCard), userInfo: nil, repeats: true)
     }
     
     @objc func stopTimer() {
         timer.invalidate()
+        timer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(wheelEffect), userInfo: nil, repeats: false)
     }
     
     @objc func resetTimer() {
-        stopTimer()
+        timer.invalidate()
+        interval = 0.1
+        count = 0.0
         startTimer()
     }
     
     @objc func showRandomCard() {
         cardImageView.image = cards.randomElement() ?? UIImage.init(named: "AS")
+    }
+    
+    @objc func wheelEffect() {
+        self.showRandomCard()
+        count += 1
+        interval += 1.0 / maxCount
+        
+        if count != maxCount {
+            timer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(wheelEffect), userInfo: nil, repeats: false)
+        }
     }
     
     func configureUI() {
