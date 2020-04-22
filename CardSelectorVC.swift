@@ -15,7 +15,7 @@ class CardSelectorVC: UIViewController {
     var timer: Timer!
     var interval = 0.1
     var count = 0.0
-    let maxCount = 8.0
+    let maxCount = 5.0
     
     let cardImageView   = UIImageView()
     let stopButton      = WPbutton(backgroundColor: .systemRed, title: "Stop!")
@@ -53,8 +53,8 @@ class CardSelectorVC: UIViewController {
     
     @objc func wheelEffect() {
         self.showRandomCard()
-        count += 1
-        interval += 1.0 / maxCount
+        count += 0.5
+        interval += 0.5 / maxCount
         
         if count != maxCount {
             timer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(wheelEffect), userInfo: nil, repeats: false)
